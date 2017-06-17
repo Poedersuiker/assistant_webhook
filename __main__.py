@@ -3,9 +3,11 @@ from socketserver import ThreadingMixIn
 import logging
 import aw_config # personal configuration file (fill from aw_config-example.py)
 import ssl
-
+from aw_pubsub import AWPubSub
 
 class AWebhookHTTPServer(BaseHTTPRequestHandler):
+    awpubsub = AWPubSub()
+
     def do_GET(self):
         logging.info(self.path)
         path = self.path.split('/')
@@ -19,7 +21,10 @@ class AWebhookHTTPServer(BaseHTTPRequestHandler):
     def do_POST(self):
         logging.info(self.path)
         authkey = self.headers.get('authkey')
+        path = self.path.split('/')
+
         if authkey == aw_config.authkey:
+            if self.awpubsub.publish_msg(path[1], path[2])
             self.send_response(200)
             self.send_header('Content-Type', 'text/html')
             self.end_headers()
