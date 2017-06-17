@@ -24,14 +24,14 @@ class AWebhookHTTPServer(BaseHTTPRequestHandler):
         path = self.path.split('/')
 
         if authkey == aw_config.authkey:
-            msg_id = self.awpubsub.publish_msg(path[1], path[2])
+            jsonstring = self.rfile.read(int(self.headers['Content-Length']))
+            msg_id = self.awpubsub.publish_msg(path[1], path[2], jsonstring)
             if len(str(msg_id)) > 3:
                 self.send_response(200)
                 self.send_header('Content-Type', 'text/html')
                 self.end_headers()
 
-                jsonstring = self.rfile.read(int(self.headers['Content-Length'])).decode('utf-8')
-                logging.info(jsonstring)
+                logging.info(jsonstring.decode('utf-8'))
             else:
                 self.send_response(msg_id)
         else:
