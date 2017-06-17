@@ -6,8 +6,6 @@ class AWPubSub:
         self.topics = {}
 
     def publish_msg(self, project, topic, msg):
-        msg = msg.encode('utf-8')
-
         if self.check_project(project):
             if self.check_topic(project, topic):
                 msg_id = self.topics[project][topic].publish(msg)
