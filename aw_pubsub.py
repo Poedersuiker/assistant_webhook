@@ -3,6 +3,7 @@ from google.cloud import pubsub
 
 class AWPubSub:
     def __init__(self):
+        self.projects = {}
         self.topics = {}
 
     def publish_msg(self, project, topic, msg):
@@ -16,11 +17,12 @@ class AWPubSub:
             return 400
 
     def check_project(self, project):
-        if project in self.topics:
+        if project in self.projects:
             return True
         else:
             try:
-                self.topics[project] = pubsub.Client(project)
+                self.projects[project] = pubsub.Client(project)
+                self.topics[project] = {}
                 return True
             except:
                 return False
@@ -30,7 +32,7 @@ class AWPubSub:
             return True
         else:
             try:
-                self.topics[project][topic] = self.topics[project].topic(topic)
+                self.topics[project][topic] = self.projects[project].topic(topic)
                 return True
             except:
                 return False
