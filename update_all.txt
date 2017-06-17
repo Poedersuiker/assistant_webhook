@@ -4,5 +4,5 @@ sudo certbot renew
 
 sudo cat /etc/letsencrypt/live/the-underground.nl/fullchain.pem /etc/letsencrypt/live/the-underground.nl/privkey.pem > fullchain.pem
 
-sudo  python3 __main__.py
+python3 __main__.py
 
