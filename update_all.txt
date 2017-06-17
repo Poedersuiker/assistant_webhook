@@ -1,5 +1,7 @@
 git pull https://github.com/Poedersuiker/assistant_webhook
 
+sudo certbot renew
+
 sudo cat /etc/letsencrypt/live/the-underground.nl/fullchain.pem /etc/letsencrypt/live/the-underground.nl/privkey.pem > fullchain.pem
 
 sudo  python3 __main__.py
