@@ -16,7 +16,7 @@ class AWebhookHTTPServer(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type', 'image/png')
             self.end_headers()
-            self.wfile.write("OK {0}".format(path))
+            self.wfile.write("OK {0}".format(path).encode())
 
     def do_POST(self):
         logging.info(self.path)
