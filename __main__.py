@@ -17,7 +17,7 @@ class AWebhookHTTPServer(BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/html')
             self.end_headers()
             policy_text = open('policy.html', 'r')
-            self.wfile.write(policy_text.read())
+            self.wfile.write(bytes(policy_text.read()))
             policy_text.close()
         else:
             self.send_response(200)
