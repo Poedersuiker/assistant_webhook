@@ -12,7 +12,13 @@ class AWebhookHTTPServer(BaseHTTPRequestHandler):
         logging.info(self.path)
         path = self.path.split('/')
 
-        if True:
+        if self.path == '/':
+            self.send_response(200)
+            self.send_header('Content-type', 'text/html')
+            self.end_headers()
+            policy_text = open(policy.html)
+            self.rfile.write(policy_text.read())
+        else:
             self.send_response(200)
             self.send_header('Content-type', 'image/png')
             self.end_headers()
